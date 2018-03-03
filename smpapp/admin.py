@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from .models import Student, Teacher, SchoolSubject
-
+from .models import Student, Teacher, SchoolSubject, Author, Book, Tag
 # Register your models here.
+
+''' ------------------- SCHOOL SECTION ------------------- '''
 
 def suspend(admin, request, queryset):
     queryset.update(active=True)
@@ -33,3 +34,18 @@ class SchoolSubjectAdmin(admin.ModelAdmin):
 
     def teacher_list(self, obj):
         return ', '.join([str(t) for t in obj.teacher.all()])
+
+
+''' ------------------- LIBRARY SECTION ------------------- '''
+class BookTagInLineAdmin(admin.TabularInline):
+    model = Book.tags.through
+
+@admin.register(Book)
+class BookAdmin(admin.ModelAdmin):
+    list_display = ['title', 'gender', 'author', 'is_borrowed', 'tags_list']
+    inlines = (BookTagInLineAdmin,)
+
+    def tags_list(self, obj):
+        return ', '.join([str(t) for t in obj.tags.all()])
+
+
