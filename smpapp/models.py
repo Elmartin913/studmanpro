@@ -3,9 +3,9 @@ from django.db import models
 # Create your models here.
 
 SCHOOL_CLASS = (
-    (1, "1 klas"),
-    (2, "2 klas"),
-    (3, "3 klas"),
+    (1, "1 klasa"),
+    (2, "2 klasa"),
+    (3, "3 klasa"),
 )
 
 GRADES = (
@@ -28,48 +28,56 @@ GRADES = (
 )
 
 
-class SchoolSubject(models.Model):
-    name = models.CharField(max_length=64)
-
-
-    def name2(self):
-        return "{} - {}".format(self.teacher_name, self.name)
-
-    def __str__(self):
-        return self.name2
+'''SCHOOL SECTION'''
 
 
 class Student(models.Model):
-    first_name = models.CharField(max_length=64)
-    last_name = models.CharField(max_length=64)
+    first_name = models.CharField(max_length=64, verbose_name='Imię')
+    last_name = models.CharField(max_length=64, verbose_name='Nazwisko')
     school_class = models.IntegerField(choices=SCHOOL_CLASS, verbose_name='Klasa')
-    grades = models.ManyToManyField(SchoolSubject)
-    email = models.EmailField(verbose_name='Email')
-    photo = models.ImageField(upload_to='photos', verbose_name='Zdjecie')
-    year_of_birth = models.IntegerField(null=True, blank=True, verbose_name='Rok urodzenia')  # blank pozwala na wyslanie niewypenionego pola
+    email = models.EmailField(verbose_name='Email', blank=True)
     suspended = models.BooleanField(default=True, verbose_name='Aktywny')
     add_date = models.DateField(auto_now_add=True)
+    # relationships: SchoolSubject, StudentGrades, UnpreparedList
+    #actions:
+    active = models.BooleanField(default=True, verbose_name='Aktywny')
 
-
-    def name(self):
-        return "{} {}".format(self.first_name, self.last_name)
+    class Meta:
+        verbose_name = 'Student'
+        verbose_name_plural = 'Studenci'
 
     def __str__(self):
-        return self.name
+        return "{} {}".format(self.first_name, self.last_name)
+
 
 
 class Teacher(models.Model):
-    first_name = models.CharField(max_length=64)
-    last_name = models.CharField(max_length=64)
-    subject = models.ManyToManyField(SchoolSubject)
-    email = models.EmailField(verbose_name='Email')
-    photo = models.ImageField(upload_to='photos', verbose_name='Zdjecie')
-    year_of_birth = models.IntegerField(null=True, blank=True, verbose_name='Rok urodzenia')  # blank pozwala na wyslanie niewypenionego pola
+    first_name = models.CharField(max_length=64, verbose_name='Imię')
+    last_name = models.CharField(max_length=64, verbose_name='Nazwisko')
+    email = models.EmailField(verbose_name='Email', blank=True)
     suspended = models.BooleanField(default=True, verbose_name='Aktywny')
     add_date = models.DateField(auto_now_add=True)
+    # relationships: school_subject
+    #actions:
+    active = models.BooleanField(default=True, verbose_name='Aktywny')
 
-    def name(self):
+    class Meta:
+        verbose_name = 'Nauczyciel'
+        verbose_name_plural = 'Nauczyciele'
+
+    def __str__(self):
         return "{} {}".format(self.first_name, self.last_name)
+
+
+
+class SchoolSubject(models.Model):
+    name = models.CharField(max_length=64, verbose_name='Przedmiot')
+    # relationships: teacher
+    teacher = models.ManyToManyField(Teacher)
+
+    class Meta:
+        verbose_name = 'Przedmiot'
+        verbose_name_plural = 'Przedmioty'
 
     def __str__(self):
         return self.name
@@ -77,20 +85,24 @@ class Teacher(models.Model):
 
 
 class StudentGrades(models.Model):
+    grade = models.FloatField(choices=GRADES)
+    # relationships:
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     school_subject = models.ForeignKey(SchoolSubject, on_delete=models.CASCADE)
-    grade = models.FloatField(choices=GRADES)
 
 
 class PresenceList(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
     day = models.DateField()
     present = models.NullBooleanField()
+    # relationships:
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
 
 
-class Message(models.Model):
-    subject = models.CharField(max_length=256, verbose_name='Temat')
-    content = models.TextField(null=True)
-    date_sent = models.DateTimeField(auto_now_add=True)  # tylko data utworzenia, auto_now - czas ostatniego uzycia
-    to = models.ForeignKey(SchoolSubject, on_delete=models.CASCADE)
-    author = models.ForeignKey(Student, on_delete=models.CASCADE)
+class UnpreparedList(models.Model):
+    day = models.DateField()
+    # relationships:
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    school_subject = models.ForeignKey(SchoolSubject,on_delete=models.CASCADE)
+
+
+'''LIBRARY SECTION'''
