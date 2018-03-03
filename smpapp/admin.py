@@ -37,6 +37,18 @@ class SchoolSubjectAdmin(admin.ModelAdmin):
 
 
 ''' ------------------- LIBRARY SECTION ------------------- '''
+
+def rented(admin, request, queryset):
+    queryset.update(is_borrowed=True)
+
+rented.short_description = 'Wypożyczona'
+
+
+def returned(admin, request, queryset):
+    queryset.update(is_borrowed=False)
+
+returned.short_description = 'Zwrócona'
+
 class BookTagInLineAdmin(admin.TabularInline):
     model = Book.tags.through
 
@@ -44,6 +56,7 @@ class BookTagInLineAdmin(admin.TabularInline):
 class BookAdmin(admin.ModelAdmin):
     list_display = ['title', 'gender', 'author', 'is_borrowed', 'tags_list']
     inlines = (BookTagInLineAdmin,)
+    actions = (rented, returned)
 
     def tags_list(self, obj):
         return ', '.join([str(t) for t in obj.tags.all()])
