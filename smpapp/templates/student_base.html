@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <script src=""></script>
+</body>
+<header>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">WebSiteName</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">Page 1</a></li>
+          <li><a href="#">Page 2</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profil</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Wyloguj</a></li>
+        </ul>
+      </div>
+    </nav>
+</header>
+
+<section id="student_diary">
+  <div class="title">
+            <div class="title-icon">
+                <i class="fa fa-gears"></i>
+            </div>
+            <div class="title-text">
+                <h2 class="title-heading">Dzienniczek</h2>
+            </div>
+        </div>
+   <div class="diary-center">
+      {% block diary %}
+      {% endblock diary %}
+   </div> 
+</section>
+
+<section id="student_unprepared">
+  <div class="title">
+            <div class="title-icon">
+                <i class="fa fa-gears"></i>
+            </div>
+            <div class="title-text">
+                <h2 class="title-heading">Nieprzygotowania</h2>
+            </div>
+        </div>
+   <div class="unprepared-center">
+      {% block unprepared %}
+      {% endblock unprepared %}
+   </div> 
+</section>
+
+<section id="student_absence">
+  <div class="title">
+            <div class="title-icon">
+                <i class="fa fa-gears"></i>
+            </div>
+            <div class="title-text">
+                <h2 class="title-heading">Nieodecności</h2>
+            </div>
+        </div>
+   <div class="absence-center">
+      {% block absence %}
+      {% endblock absence %}
+   </div> 
+    </section>
+
+
+
+<footer>
+   <p>Wersja: {{ version }} | </p>
+</footer>
+</html>

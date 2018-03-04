@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <script src=""></script>
+</body>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="tryit.asp-filename=trybs_navbar_right&stacked=h.html#">WebSiteName</a>
+        </div>
+        <ul class="nav navbar-nav">
+          {% block class %}
+          {% endblock class %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="tryit.asp-filename=trybs_navbar_right&stacked=h.html#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="tryit.asp-filename=trybs_navbar_right&stacked=h.html#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </nav>
+
+
+
+
+<section id="teacher_diary">
+  <div class="title">
+            <div class="title-icon">
+                <i class="fa fa-gears"></i>
+            </div>
+            <div class="title-text">
+                <h2 class="title-heading">Dziennik nauczycielski</h2>
+            </div>
+        </div>
+   <div class="diary-center">
+      {% block teacher_diary %}
+      {% endblock teacher_diary %}
+   </div> 
+</section>
+
+<section id="absence_list">
+  <div class="title">
+            <div class="title-icon">
+                <i class="fa fa-gears"></i>
+            </div>
+            <div class="title-text">
+                <h2 class="title-heading">Lista obecności</h2>
+            </div>
+        </div>
+   <div class="absence-center">
+      {% block absence_list %}
+      {% endblock absence_list %}
+   </div> 
+    </section>
+
+<section id="students_unprepared">
+  <div class="title">
+            <div class="title-icon">
+                <i class="fa fa-gears"></i>
+            </div>
+            <div class="title-text">
+                <h2 class="title-heading">Wykorzystane nieprzygotowania</h2>
+            </div>
+        </div>
+   <div class="unprepared-center">
+      {% block used_unprepared %}
+      {% endblock used_unprepared %}
+   </div> 
+</section>
+
+<section id="student_absence">
+  <div class="title">
+            <div class="title-icon">
+                <i class="fa fa-gears"></i>
+            </div>
+            <div class="title-text">
+                <h2 class="title-heading">Nieodecności</h2>
+            </div>
+        </div>
+   <div class="absence-center">
+      {% block absence %}
+      {% endblock absence %}
+   </div> 
+    </section>
+
+
+
+<footer>
+   <p>Wersja: {{ version }} | </p>
+</footer>
+</html>
