@@ -1,7 +1,7 @@
 {% extends 'teacher_base.html' %}
 
     {% block class %}
-        {% for c in all_class %}
+        {% for c in cp_class %}
         <li><a href="/teacher/{{ c.0 }}">{{ c.1 }}</a></li>
         {% endfor %}
     {% endblock class %}

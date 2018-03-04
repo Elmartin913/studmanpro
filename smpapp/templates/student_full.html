@@ -21,9 +21,21 @@
          {% for sub in subjects %}
              <tr>
                  <td>{{ sub.id }}</td>
-                 <td>{{ sub }}</td>
-                 <td>{{ sub.teacher_set.teacher.last_name }}</td>
-                   <td>{{ grades }}</td>
+                 <td>{{ sub.name }}</td>
+                 <td>
+                    {% for t in teacher.sub_set.all %}
+                        {{ t.last_name }}
+                    {% endfor %}
+                 <td>
+                     <ul>
+                         {% for g in grades %}
+                             {% if g.student_id == sub.id %}
+                                <li>{{ g.grade }}</li>
+                             {% endif %}
+                         {% endfor %}
+                     </ul>
+
+                 </td>
              </tr>
         {% endfor %}
         </tbody>

@@ -3,7 +3,7 @@ from django.http import request
 from django.views import View
 from django.template.response import TemplateResponse
 
-from smpapp.models import SCHOOL_CLASS, Student, SchoolSubject, StudentGrades
+from smpapp.models import SCHOOL_CLASS, Student, SchoolSubject, StudentGrades, Teacher
 
 # Create your views here.
 
@@ -37,17 +37,21 @@ class TeacherView(View):
         return render(request, 'teacher_full.html', ctx)
 
 
+
+
 ''' Student Section'''
 class StudentView(View):
     def get(self, request, student_id):
         student = Student.objects.get(pk=student_id)
         subjects = SchoolSubject.objects.all()
         grades = StudentGrades.objects.filter(student_id=student_id)
-        print(vars(student))
+        teachers = Teacher.objects.all()
+        print(vars(subjects))
         ctx ={
             'student': student,
             'grades': grades,
             'subjects': subjects,
+            'teachers': teachers,
         }
         return render(request, 'student_full.html', ctx)
 

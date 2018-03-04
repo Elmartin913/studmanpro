@@ -73,13 +73,11 @@ class Teacher(models.Model):
 class SchoolSubject(models.Model):
     name = models.CharField(max_length=64, verbose_name='Przedmiot')
     # relationships: teacher
-    teacher = models.ManyToManyField(Teacher)
-
+    teacher = models.ManyToManyField('Teacher')
 
     class Meta:
         verbose_name = 'Przedmiot'
         verbose_name_plural = 'Przedmioty'
-
 
     def __str__(self):
         return self.name
