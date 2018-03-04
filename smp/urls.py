@@ -16,14 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from smpapp.views import (LPView,
-                          TeacherStartView,TeacherView,
-                          )
+from smpapp.views import (
+    LPView,
+    TeacherStartView,TeacherView,
+    StudentView
+    )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', LPView.as_view(), name='lp'),
     path('teacher', TeacherStartView.as_view(), name='teacher_start'),
     path('teacher/<int:class_id>/<int:subject_id>', TeacherView.as_view(), name='teacher_class'),
+    path('student/<int:student_id>', StudentView.as_view(), name='student_view'),
 
 ]

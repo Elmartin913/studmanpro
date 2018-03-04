@@ -35,3 +35,45 @@ class TeacherView(View):
         }
 
         return render(request, 'teacher_full.html', ctx)
+
+
+''' Student Section'''
+class StudentView(View):
+    def get(self, request, student_id):
+        student = Student.objects.get(pk=student_id)
+        subjects = SchoolSubject.objects.all()
+        grades = StudentGrades.objects.filter(student_id=student_id)
+        print(vars(student))
+        ctx ={
+            'student': student,
+            'grades': grades,
+            'subjects': subjects,
+        }
+        return render(request, 'student_full.html', ctx)
+
+
+class Grades(View):
+
+    def get(self, request, student_id, subject_id):
+        student = Student.objects.get(pk=student_id)
+        subject = SchoolSubject.objects.get(pk=subject_id)
+        grades = StudentGrades.objects.filter(
+            student_id=student_id,
+            school_subject=subject_id
+        )
+
+        try:
+            sum = 0
+            for g in grades:
+                sum += int(g.grade)
+            avg = round(sum / len(grades), 2)
+        except ZeroDivisionError:
+            avg = 0
+
+        ctx = {
+            'student': student,
+            'subject': subject,
+            'grades': grades,
+            'avg': avg,
+        }
+        return render(request, 'grades.html', ctx)

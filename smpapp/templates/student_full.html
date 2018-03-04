@@ -1,6 +1,33 @@
-{% extends 'student_base.htmel' %}
+{% extends 'student_base.html' %}
+
+      {% block profil %}
+            <p>Imię: {{ student.first_name }}</p>
+            <p>Nazwisko: {{ student.last_name }}</p>
+            <p>Klasa: {{ student.get_school_class_display }}</p>
+            <p>Status: {{ student.suspended }}</p>
+      {% endblock profil %}
 
       {% block diary %}
+      <table class="table table-striped">
+         <thead>
+             <tr>
+                  <th>Id</th>
+                  <th>Przedmiot</th>
+                  <th>Nauczyciel</th>
+                   <th>Oceny</th>
+              </tr>
+         </thead>
+         <tbody>
+         {% for sub in subjects %}
+             <tr>
+                 <td>{{ sub.id }}</td>
+                 <td>{{ sub }}</td>
+                 <td>{{ sub.teacher_set.teacher.last_name }}</td>
+                   <td>{{ grades }}</td>
+             </tr>
+        {% endfor %}
+        </tbody>
+      </table>
       {% endblock diary %}
 
       {% block unprepared %}

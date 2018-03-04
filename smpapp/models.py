@@ -75,6 +75,7 @@ class SchoolSubject(models.Model):
     # relationships: teacher
     teacher = models.ManyToManyField(Teacher)
 
+
     class Meta:
         verbose_name = 'Przedmiot'
         verbose_name_plural = 'Przedmioty'
