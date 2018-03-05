@@ -73,7 +73,7 @@ class Teacher(models.Model):
 class SchoolSubject(models.Model):
     name = models.CharField(max_length=64, verbose_name='Przedmiot')
     # relationships: teacher
-    teacher = models.ManyToManyField('Teacher')
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='schoolsubject')
 
     class Meta:
         verbose_name = 'Przedmiot'

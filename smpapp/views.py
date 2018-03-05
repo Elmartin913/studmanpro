@@ -45,13 +45,11 @@ class StudentView(View):
         student = Student.objects.get(pk=student_id)
         subjects = SchoolSubject.objects.all()
         grades = StudentGrades.objects.filter(student_id=student_id)
-        teachers = Teacher.objects.all()
-        print(vars(subjects))
+
         ctx ={
             'student': student,
             'grades': grades,
             'subjects': subjects,
-            'teachers': teachers,
         }
         return render(request, 'student_full.html', ctx)
 
@@ -65,7 +63,6 @@ class Grades(View):
             student_id=student_id,
             school_subject=subject_id
         )
-
         try:
             sum = 0
             for g in grades:
