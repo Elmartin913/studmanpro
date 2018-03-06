@@ -1,12 +1,5 @@
 {% extends 'teacher_base.html' %}
 
-    {% block class %}
-        {% for c in cp_class %}
-        <li><a href="/teacher/{{ c.0 }}">{{ c.1 }}</a></li>
-        {% endfor %}
-    {% endblock class %}
-
-
 
     {% block teacher_diary %}
     <h3>Przedmiot: {{ subject.name }}</h3><p>id: {{ subject.id }}</p>
@@ -16,6 +9,7 @@
                  <th>Id</th>
                  <th>Imię Nazwisko</th>
                  <th>Oceny</th>
+                 <th>Średnia</th>
                  <th></th>
               </tr>
          </thead>
@@ -26,22 +20,24 @@
                  <td><a href="/student/{{ s.id }}">{{ s.first_name }} {{ s.last_name }}</a></td>
                  <td>
                      <ul>
-                     {% for g in grades.filter %}
+                     {% for g in grades %}
                          {% if g.student_id == s.id %}
                             <li>{{ g.grade }}</li>
                          {% endif %}
                      {% endfor %}
                      </ul>
                  </td>
-                 <td><a href="#">Oceń</a></td>
+                 <td>
+                     {% for g in grades %}
+                         {% if g.student_id == s.id %}
+                             {{ g.avg }}
+                         {% endif %}
+                     {% endfor %}
+                 </td>
+                 <td><a href="/teacher/{{ class_id }}/{{ subject.id }}/{{ s.id }}/grades">Oceń</a></td>
              </tr>
         {% endfor %}
         </tbody>
      </table>
     {% endblock teacher_diary %}
 
-    {% block absence_list %}
-    {% endblock absence_list %}
-
-    {% block used_unprepared %}
-    {% endblock used_unprepared %}

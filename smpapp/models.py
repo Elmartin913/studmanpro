@@ -94,13 +94,15 @@ class StudentGrades(models.Model):
 
 class PresenceList(models.Model):
     day = models.DateField()
-    present = models.NullBooleanField()
+    present = models.NullBooleanField(default=True)
     # relationships:
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    school_subject = models.ForeignKey(SchoolSubject, on_delete=models.CASCADE, null=True)
 
 
 class UnpreparedList(models.Model):
-    day = models.DateField()
+    unprep_one_used = models.BooleanField(default=False)
+    unprep_two_used = models.BooleanField(default=False)
     # relationships:
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     school_subject = models.ForeignKey(SchoolSubject,on_delete=models.CASCADE)

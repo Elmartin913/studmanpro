@@ -1,6 +1,9 @@
 from django.contrib import admin
 
-from .models import Student, Teacher, SchoolSubject, Author, Book, Tag
+from .models import (
+    Student, Teacher, SchoolSubject,StudentGrades, PresenceList, UnpreparedList,
+    Author, Book, Tag
+)
 # Register your models here.
 
 ''' ------------------- SCHOOL SECTION ------------------- '''
@@ -34,6 +37,22 @@ class SchoolSubjectAdmin(admin.ModelAdmin):
 
     def teacher_list(self, obj):
         return ', '.join([str(t) for t in obj.teacher.all()])
+
+'''
+@admin.register(StudentGrades)
+class StudentGradesAdmin(admin.ModelAdmin):
+    list_display = '__all__'
+
+
+@admin.register(PresenceList)
+class PresenceListAdmin(admin.ModelAdmin):
+    list_display = '__all__'
+
+
+@admin.register(UnpreparedList)
+class UnpreparedListAdmin(admin.ModelAdmin):
+    list_display = '__all__'
+'''
 
 
 ''' ------------------- LIBRARY SECTION ------------------- '''

@@ -4,7 +4,6 @@
             <p>Imię: {{ student.first_name }}</p>
             <p>Nazwisko: {{ student.last_name }}</p>
             <p>Klasa: {{ student.get_school_class_display }}</p>
-            <p>Status: {{ student.suspended }}</p>
       {% endblock profil %}
 
       {% block diary %}
@@ -17,7 +16,7 @@
               </tr>
          </thead>
          <tbody>
-         {% for sub in subjects %}
+         {% for sub in cp_subjects %}
              <tr>
                  <td>{{ sub.id }}</td>
                  <td>{{ sub }}</td>
@@ -38,7 +37,32 @@
       {% endblock diary %}
 
       {% block unprepared %}
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th>Przedmiot</th>
+                  <th>Nieprzydotowanie 1</th>
+                  <th>Nieprzydotowanie 2</th>
+              </tr>
+              {% for sub in cp_subjects %}
+              <tr>
+                 <td>{{ sub }}</td>
+                 <td>
+                     {% for unp in unprepared_list %}
+                         {% if unp.school_subject_id == sub.id %}
+                            {{ unp.unprep_one_used }}
+                         {% endif %}
+                     {% endfor %}
+                 </td>
+                 <td>
+                     {% for unp in unprepared_list %}
+                         {% if unp.school_subject_id == sub.id %}
+                            {{ unp.unprep_two_used }}
+                         {% endif %}
+                     {% endfor %}
+                 </td>
+             </tr>
+        {% endfor %}
+        </tbody>
+      </table>
       {% endblock unprepared %}
-
-      {% block absence %}
-      {% endblock absence %}

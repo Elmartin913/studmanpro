@@ -3,7 +3,14 @@ from django.http import request
 from django.views import View
 from django.template.response import TemplateResponse
 
-from smpapp.models import SCHOOL_CLASS, Student, SchoolSubject, StudentGrades, Teacher
+from smpapp.models import (
+    SCHOOL_CLASS,
+    Student,
+    SchoolSubject,
+    StudentGrades,
+    UnpreparedList,
+    PresenceList,
+)
 
 # Create your views here.
 
@@ -26,12 +33,16 @@ class TeacherView(View):
         students = Student.objects.filter(school_class=class_id)
         subject = SchoolSubject.objects.get(pk=subject_id)
         grades = StudentGrades.objects.filter(school_subject_id=subject_id)
+        unprepared_list = UnpreparedList.objects.filter(school_subject_id=subject_id)
+        presence_list = PresenceList.objects.filter(school_subject_id=subject_id)
 
         ctx = {
-            'all_class': SCHOOL_CLASS,
             'subject': subject,
             'students': students,
             'grades': grades,
+            'unprepared_list': unprepared_list,
+            'presence_list': presence_list,
+            'class_id': class_id,
         }
 
         return render(request, 'teacher_full.html', ctx)
@@ -43,53 +54,13 @@ class TeacherView(View):
 class StudentView(View):
     def get(self, request, student_id):
         student = Student.objects.get(pk=student_id)
-        subjects = SchoolSubject.objects.all()
         grades = StudentGrades.objects.filter(student_id=student_id)
+        unprepared_list = UnpreparedList.objects.filter(student_id=student_id)
 
         ctx ={
             'student': student,
             'grades': grades,
-            'subjects': subjects,
+            'unprepared_list': unprepared_list,
         }
         return render(request, 'student_full.html', ctx)
 
-
-class Grades(View):
-
-    def get(self, request, student_id, subject_id):
-        student = Student.objects.get(pk=student_id)
-        subject = SchoolSubject.objects.get(pk=subject_id)
-        grades = StudentGrades.objects.filter(
-            student_id=student_id,
-            school_subject=subject_id
-        )
-        try:
-            sum = 0
-            for g in grades:
-                sum += int(g.grade)
-            avg = round(sum / len(grades), 2)
-        except ZeroDivisionError:
-            avg = 0
-
-        ctx = {
-            'student': student,
-            'subject': subject,
-            'grades': grades,
-            'avg': avg,
-        }
-        return render(request, 'grades.html', ctx)
-
-
-class StudentSearchView(View):
-
-    def get(self, request):
-        form = StudentSearchForm()
-        return render(request, 'student_search.html', {'form': form})
-
-    def post(self, request):
-        form = StudentSearchForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            students = Student.objects.filter(last_name__icontains=name)
-            # niezwaza na wielkosc znakow
-            return render(request, 'student_search.html', {'form': form, 'students': students})
