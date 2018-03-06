@@ -68,6 +68,46 @@ class StudentSearchView(View):
             return render(request, 'student_search.html', {'form': form, 'students': students})
 
 
+class StudentGradesFormView(View):
+    def get(self, request, class_id, subject_id, student_id):
+        form = StudentGradesForm()
+        grades = StudentGrades.objects.filter(
+            student_id=student_id,
+            school_subject=subject_id
+        )
+        print(vars(grades))
+        ctx = {
+            'grades': grades,
+            'form': form,
+        }
+        return render(request, 'teacher_grades.html', ctx)
+
+    def post(self, request, class_id, subject_id, student_id):
+        form = StudentGradesForm(request.POST)
+        if form.is_valid():
+            grade = form.cleaned_data['grade']
+            grades = StudentGrades.objects.filter(
+                student_id=student_id,
+                school_subject=subject_id
+            )
+
+            try:
+                sum = float(grade)
+                for g in grades:
+                    sum += int(g.grade)
+                avg = round(sum / len(grades), 2)
+            except ZeroDivisionError:
+                avg = 0
+
+            grades = StudentGrades.objects.create(
+                school_subject_id=subject_id,
+                student_id=student_id,
+                grade = float(grade),
+                avg = avg,
+            )
+            return render(request, 'teacher_grades.html', {'form': form, 'grades': grades})
+
+
 ''' Student Section'''
 class StudentView(View):
     def get(self, request, student_id):

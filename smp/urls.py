@@ -18,7 +18,7 @@ from django.urls import path
 
 from smpapp.views import (
     LPView,
-    TeacherStartView, TeacherView, StudentSearchView,
+    TeacherStartView, TeacherView, StudentSearchView,StudentGradesFormView,
     StudentView
     )
 
@@ -29,7 +29,7 @@ urlpatterns = [
     path('teacher', TeacherStartView.as_view(), name='teacher_start'),
     path('teacher/search', StudentSearchView.as_view(), name='teacher_search'),
     path('teacher/<int:class_id>/<int:subject_id>', TeacherView.as_view(), name='teacher_class'),
-    path('teacher/<int:class_id>/<int:subject_id>/<int:student_id>/grades', TeacherView.as_view(), name='teacher_edit_grades'),
+    path('teacher/<int:class_id>/<int:subject_id>/<int:student_id>/grades', StudentGradesFormView.as_view(), name='teacher_edit_grades'),
     path('teacher/<int:class_id>/<int:subject_id>/<int:student_id>/unpr', TeacherView.as_view(), name='teacher_edit_unpr'),
     path('teacher/<int:class_id>/<int:subject_id>/pres', TeacherView.as_view(), name='teacher_edit_pres'),
     # studnent

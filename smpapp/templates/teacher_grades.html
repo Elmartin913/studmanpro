@@ -1,0 +1,20 @@
+{% extends 'teacher_base.html' %}
+
+{% block content %}
+    {% if subject_id in cp_subjects %}
+        <p>Przedmiot: {{ subject_id.last_name }}</p>
+    {% endif %}
+
+    {% for student_id in ck_students %}
+        <p>Średnia: {{ grades.avg }}</p>
+    {% endfor %}
+
+    <p>Średnia: {{ grades.avg }}</p>
+    <form method="post">
+
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit">
+    </form>
+
+{% endblock %}
