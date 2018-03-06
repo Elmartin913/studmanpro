@@ -1,0 +1,24 @@
+{% extends 'teacher_base.html' %}
+
+{% block content %}
+    <form method="POST">
+
+        {% csrf_token %}
+        {{ form }}
+
+        <input type="submit">
+    </form>
+
+        {% for s in students %}
+            <p>id: <strong>{{ s.id }}</strong></p>
+            <p>Imię: <strong>{{ s.first_name }}</strong></p>
+            <p>Nazwisko: <strong>{{ s.last_name }}</strong></p>
+            <p>Klasa: <strong>{{ s.get_school_class_display }}</strong></p>
+            <p>Eamil: <strong>{{ s.email }}</strong></p>
+            <p>Aktywny: <strong>{{ s.active }}</strong></p>
+            <br>
+        {% empty %}
+            <p>Studenta nie ma na lisci</p>
+        {% endfor%}
+
+{% endblock %}

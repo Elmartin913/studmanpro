@@ -35,32 +35,30 @@
       </div>
     </nav>
 
+<section id="content">
 
+      {% block content %}
+      {% endblock content %}
 
+</section>
 <section id="student_profil">
 
       {% block profil %}
       {% endblock profil %}
 
 </section>
-
-
-
 <section id="student_diary">
 
       {% block diary %}
       {% endblock diary %}
 
 </section>
-
 <section id="student_unprepared">
 
       {% block unprepared %}
       {% endblock unprepared %}
 
 </section>
-
-
 <footer>
    <p>Wersja: {{ version }} | </p>
 </footer>

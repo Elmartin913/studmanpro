@@ -1,7 +1,7 @@
 from django import forms
 
 from .models import (
-    Student, PresenceList, UnpreparedList, StudentGrades
+    GRADES, Student, PresenceList, UnpreparedList, StudentGrades
 )
 
 class StudentSearchForm(forms.Form):
@@ -9,19 +9,19 @@ class StudentSearchForm(forms.Form):
 
 
 class StudentGradesForm(forms.Form):
-    grade = forms.ChoiceField(label='Ocena', choices=SCHOOL_CLASS)
+    grade = forms.ChoiceField(label='Ocena', choices=GRADES)
 
 
 class PresenceListForm(forms.Form):
 
     student = forms.ModelChoiceField(label='Student', queryset=Student.objects.all())
     day = forms.DateField(label='Data', widget=forms.HiddenInput())
-    present = forms.NullBooleanField(label='ObecnyS')
+    present = forms.NullBooleanField(label='Obecny?')
 
 
 class UnpreparedListForm(forms.ModelForm):
     class Meta:
         model = UnpreparedList
-        excude = ['school_subject', ]
+        fields = '__all__'
 
 

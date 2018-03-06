@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import request
 from django.views import View
 from django.template.response import TemplateResponse
 
@@ -10,6 +9,13 @@ from smpapp.models import (
     StudentGrades,
     UnpreparedList,
     PresenceList,
+)
+
+from smpapp.forms import (
+    StudentSearchForm,
+    StudentGradesForm,
+    PresenceListForm,
+    UnpreparedListForm,
 )
 
 # Create your views here.
@@ -48,6 +54,18 @@ class TeacherView(View):
         return render(request, 'teacher_full.html', ctx)
 
 
+class StudentSearchView(View):
+
+    def get(self, request):
+        form = StudentSearchForm()
+        return render(request, 'student_search.html', {'form': form})
+
+    def post(self, request):
+        form = StudentSearchForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            students = Student.objects.filter(last_name__icontains=name)
+            return render(request, 'student_search.html', {'form': form, 'students': students})
 
 
 ''' Student Section'''
