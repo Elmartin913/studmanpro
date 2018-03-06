@@ -35,56 +35,29 @@
     </nav>
 
 
-
-
 <section id="teacher_diary">
 
-  <div class="title">
-            <div class="title-icon">
-                <i class="fa fa-gears"></i>
-            </div>
-            <div class="title-text">
-                <h2 class="title-heading">Dziennik nauczycielski</h2>
-            </div>
-        </div>
-   <div class="diary-center">
       {% block teacher_diary %}
       {% endblock teacher_diary %}
-   </div> 
+
 </section>
 
 <section id="absence_list">
-  <div class="title">
-            <div class="title-icon">
-                <i class="fa fa-gears"></i>
-            </div>
-            <div class="title-text">
-                <h2 class="title-heading">Lista obecności</h2>
-            </div>
-        </div>
-   <div class="absence-center">
+
       {% block absence_list %}
       {% endblock absence_list %}
-   </div> 
-    </section>
+
+</section>
 
 <section id="students_unprepared">
-  <div class="title">
-            <div class="title-icon">
-                <i class="fa fa-gears"></i>
-            </div>
-            <div class="title-text">
-                <h2 class="title-heading">Wykorzystane nieprzygotowania</h2>
-            </div>
-        </div>
-   <div class="unprepared-center">
+
       {% block used_unprepared %}
       {% endblock used_unprepared %}
-   </div> 
+
 </section>
 
 
 <footer>
-   <p>Wersja: {{ version }} | </p>
+   <p>Wersja: {{ version }} </p>
 </footer>
 </html>

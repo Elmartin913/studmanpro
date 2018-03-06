@@ -25,7 +25,7 @@ class LPView(View):
 # Full Teacher View
 class TeacherStartView(View):
     def get(self, request):
-        return render(request, 'teacher_full.html', {'all_class': SCHOOL_CLASS})
+        return render(request, 'teacher_base.html', {'all_class': SCHOOL_CLASS})
 
 
 class TeacherView(View):

@@ -1,12 +1,31 @@
 {% extends 'student_base.html' %}
 
       {% block profil %}
+      <div class="title">
+                <div class="title-icon">
+                    <i class="fa fa-gears"></i>
+                </div>
+                <div class="title-text">
+                    <h2 class="title-heading">Profil</h2>
+                </div>
+            </div>
+      <div class="profil-center">
             <p>Imię: {{ student.first_name }}</p>
             <p>Nazwisko: {{ student.last_name }}</p>
             <p>Klasa: {{ student.get_school_class_display }}</p>
+      </div>
       {% endblock profil %}
 
       {% block diary %}
+      <div class="title">
+                <div class="title-icon">
+                    <i class="fa fa-gears"></i>
+                </div>
+                <div class="title-text">
+                    <h2 class="title-heading">Dzienniczek</h2>
+                </div>
+            </div>
+      <div class="diary-center">
       <table class="table table-striped">
          <thead>
              <tr>
@@ -34,9 +53,19 @@
         {% endfor %}
         </tbody>
       </table>
+      </div>
       {% endblock diary %}
 
       {% block unprepared %}
+      <div class="title">
+                <div class="title-icon">
+                    <i class="fa fa-gears"></i>
+                </div>
+                <div class="title-text">
+                    <h2 class="title-heading">Nieprzygotowania</h2>
+                </div>
+            </div>
+      <div class="unprepared-center">
       <table class="table table-striped">
           <thead>
               <tr>
@@ -65,4 +94,5 @@
         {% endfor %}
         </tbody>
       </table>
+      </div>
       {% endblock unprepared %}

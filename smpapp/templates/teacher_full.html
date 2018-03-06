@@ -2,7 +2,16 @@
 
 
     {% block teacher_diary %}
-    <h3>Przedmiot: {{ subject.name }}</h3><p>id: {{ subject.id }}</p>
+     <div class="title">
+            <div class="title-icon">
+                <i class="fa fa-gears"></i>
+            </div>
+            <div class="title-text">
+                <h2 class="title-heading">Dziennik nauczycielski</h2>
+            </div>
+        </div>
+     <div class="diary-center">
+         <h3>Przedmiot: {{ subject.name }}</h3><p>id: {{ subject.id }}</p>
      <table class="table table-striped">
          <thead>
              <tr>
@@ -39,9 +48,19 @@
         {% endfor %}
         </tbody>
      </table>
+     </div>
     {% endblock teacher_diary %}
 
 {% block absence_list %}
+<div class="title">
+            <div class="title-icon">
+                <i class="fa fa-gears"></i>
+            </div>
+            <div class="title-text">
+                <h3 class="title-heading">Lista obecności</h3>
+            </div>
+        </div>
+   <div class="absence-center">
 <table class="table table-striped">
          <thead>
              <tr>
@@ -72,10 +91,19 @@
         {% endfor %}
         </tbody>
      </table>
-
+   </div>
     {% endblock absence_list %}
 
     {% block used_unprepared %}
+<div class="title">
+            <div class="title-icon">
+                <i class="fa fa-gears"></i>
+            </div>
+            <div class="title-text">
+                <h3 class="title-heading">Nieprzygotowania</h3>
+            </div>
+        </div>
+   <div class="unprepared-center">
     <table class="table table-striped">
          <thead>
              <tr>
@@ -110,4 +138,5 @@
         {% endfor %}
         </tbody>
      </table>
+   </div>
     {% endblock used_unprepared %}
