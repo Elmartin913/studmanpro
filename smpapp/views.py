@@ -105,7 +105,8 @@ class StudentGradesFormView(View):
                 grade = float(grade),
                 avg = avg,
             )
-            return render(request, 'teacher_grades.html', {'form': form, 'grades': grades})
+            avg = str(avg)
+            return render(request, 'teacher_grades.html', {'form': form, 'grades': grades, 'avg':avg})
 
 
 ''' Student Section'''

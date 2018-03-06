@@ -39,7 +39,7 @@
                  <td>
                      {% for g in grades %}
                          {% if g.student_id == s.id %}
-                             {{ g.avg }}
+                             {{ g.avg|last }}
                          {% endif %}
                      {% endfor %}
                  </td>

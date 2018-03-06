@@ -1,9 +1,11 @@
 {% extends 'teacher_base.html' %}
 
 {% block content %}
-    {% if subject_id in cp_subjects %}
-        <p>Przedmiot: {{ subject_id.last_name }}</p>
-    {% endif %}
+
+        {% for g in grades.student_set.last_name %}
+            <p>{{ g }}</p>
+        {% endfor %}
+
 
     {% for student_id in ck_students %}
         <p>Średnia: {{ grades.avg }}</p>
