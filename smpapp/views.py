@@ -44,7 +44,9 @@ class TeacherView(View):
         subject = SchoolSubject.objects.get(pk=subject_id)
         grades = StudentGrades.objects.filter(school_subject_id=subject_id)
         unprepared_list = UnpreparedList.objects.filter(school_subject_id=subject_id)
-        presence_list = PresenceList.objects.filter(school_subject_id=subject_id)
+        presence_list = PresenceList.objects.filter(school_subject_id=subject_id,
+                                                    day=datetime.date.today()
+                                                    )
 
         ctx = {
             'subject': subject,
@@ -56,6 +58,7 @@ class TeacherView(View):
         }
 
         return render(request, 'teacher_full.html', ctx)
+
 
 
 class StudentSearchView(View):
@@ -119,37 +122,29 @@ class StudentGradesFormView(View):
 
 class PresenceListFormView(View):
 
-    def get(self, request, class_id, subject_id):
-        day = datetime.date.today()
-
-        form = PresenceListForm(initial={'day': day})
-        form.fields['student'].choices = [(x.id, x) for x in Student.objects.filter(school_class=class_id)]
-
+    def get(self, request, class_id, subject_id, student_id):
+        date = datetime.date.today()
+        studs = Student.objects.filter(school_class=class_id)
+        form = PresenceListForm(initial={'day': date})
         return render(request, 'class_presence.html', {'form': form})
 
-    def post(self, request, class_id, subject_id):
+    def post(self, request, class_id, subject_id, student_id):
         form = PresenceListForm(request.POST)
-        day = datetime.date.today()
         if form.is_valid():
             student = form.cleaned_data['student']
             day = form.cleaned_data['day']
             present = form.cleaned_data['present']
-            userlist = request.POST.getlist('student')
-            print(vars(userlist))
-
-            for u in userlist:
-                PresenceList.objects.create(
-                    student_id=u.id,
-                    day=day,
-                    present=present
-                )
-
-        url = reverse('teacher_class', kwargs={
-            'class_id': class_id,
-            'subject_id': subject_id,
-        })
-
-        return HttpResponseRedirect(url)
+            PresenceList.objects.create(
+                student_id=student_id,
+                day=day,
+                present=present,
+                school_subject_id=subject_id,
+            )
+            url = reverse_lazy('teacher_class', kwargs={
+                'subject_id': subject_id,
+                'class_id': class_id
+            })
+            return HttpResponseRedirect(url)
 
 
 

@@ -56,7 +56,8 @@
                 <i class="fa fa-gears"></i>
             </div>
             <div class="title-text">
-                <h3 class="title-heading">Lista obecności {{ date }}</h3>
+                <h3 class="title-heading">Lista obecności</h3>
+                <h4>Dzień: {{ date }}</h4>
             </div>
         </div>
    <div class="absence-center">
@@ -81,7 +82,7 @@
                          {% endif %}
                      {% endfor %}
                  </td>
-                 <td><a href="/teacher/{{ class_id }}/{{ subject.id }}/pres">Edytuj</a></td>
+                 <td><a href="/teacher/{{ class_id }}/{{ subject.id }}/{{ s.id }}/pres">Edytuj</a></td>
              </tr>
         {% endfor %}
         </tbody>
