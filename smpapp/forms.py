@@ -14,9 +14,10 @@ class StudentGradesForm(forms.Form):
 
 class PresenceListForm(forms.Form):
 
-    student = forms.ModelChoiceField(label='Student', queryset=Student.objects.all())
+    student = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,label="Students")
     day = forms.DateField(label='Data', widget=forms.HiddenInput())
-    present = forms.NullBooleanField(label='Obecny?')
+    present = forms.NullBooleanField(label='Obecny? ')
+
 
 
 class UnpreparedListForm(forms.ModelForm):

@@ -94,7 +94,7 @@ class StudentGrades(models.Model):
 
 class PresenceList(models.Model):
     day = models.DateField()
-    present = models.NullBooleanField(default=True)
+    present = models.NullBooleanField()
     # relationships:
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     school_subject = models.ForeignKey(SchoolSubject, on_delete=models.CASCADE, null=True)

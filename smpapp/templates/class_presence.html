@@ -2,12 +2,19 @@
 
 {% block content %}
 
-    <form method="POST">
-
-        {% csrf_token %}
-        {{ form }}
-
-        <input type="submit">
-    </form>
+   {% for factura in facturas %}
+   <tr>
+       <td><i class="fa fa-file"> <a href="{% url 'ver_Factura' factura.pk %}">Ver</a></i>
+       <div class="checkbox">
+           <label>
+                  <input type="checkbox">
+           </label>
+       </div>
+       </td>
+       <td>{{ factura.nombre_cliente }}</td>
+       <td>{{factura.numero_De_Factura }}</td>
+       <td>{{factura.fecha_factura }}</td>
+                            </tr>
+{% endfor %}
 
 {% endblock content %}
