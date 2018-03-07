@@ -1,6 +1,10 @@
+import datetime
+
 from django.shortcuts import render
 from django.views import View
 from django.template.response import TemplateResponse
+from django.http import HttpResponse, HttpResponseRedirect, request
+from django.urls import reverse, reverse_lazy
 
 from smpapp.models import (
     SCHOOL_CLASS,
@@ -95,7 +99,7 @@ class StudentGradesFormView(View):
                 sum = float(grade)
                 for g in grades:
                     sum += int(g.grade)
-                avg = round(sum / len(grades), 2)
+                avg = round(sum / (len(grades)+1), 2)
             except ZeroDivisionError:
                 avg = 0
 
@@ -105,8 +109,39 @@ class StudentGradesFormView(View):
                 grade = float(grade),
                 avg = avg,
             )
-            avg = str(avg)
-            return render(request, 'teacher_grades.html', {'form': form, 'grades': grades, 'avg':avg})
+
+            url = reverse('teacher_class', kwargs={
+                'class_id': class_id,
+                'subject_id': subject_id,
+            })
+            return HttpResponseRedirect(url)
+
+
+class PresenceListFormView(View):
+
+    def get(self, request, class_id, subject_id, student_id):
+        day = datetime.date.today()
+        form = PresenceListForm(initial={'day': day})
+        return render(request, 'class_presence.html', {'form': form})
+
+    def post(self, request, class_id, subject_id):
+        form = PresenceListForm(request.POST)
+        day = datetime.date.today()
+        if form.is_valid():
+            student = form.cleaned_data['student']
+            day = form.cleaned_data['day']
+            present = form.cleaned_data['present']
+            PresenceList.objects.create(
+                student=student,
+                day=day,
+                present=present
+            )
+            url = reverse('teacher_class', kwargs={
+                'class_id': class_id,
+                'subject_id': subject_id,
+            })
+            return HttpResponseRedirect(url)
+
 
 
 ''' Student Section'''

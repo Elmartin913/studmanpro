@@ -11,6 +11,7 @@
             </div>
         </div>
      <div class="diary-center">
+         <h3>Przedmiot: {{ student.school_class }}</h3>
          <h3>Przedmiot: {{ subject.name }}</h3><p>id: {{ subject.id }}</p>
      <table class="table table-striped">
          <thead>
@@ -28,18 +29,16 @@
                  <td>{{ s.id }}</td>
                  <td><a href="/student/{{ s.id }}">{{ s.first_name }} {{ s.last_name }}</a></td>
                  <td>
-                     <ul>
                      {% for g in grades %}
                          {% if g.student_id == s.id %}
-                            <li>{{ g.grade }}</li>
+                            {{ g.get_grade_display }}&nbsp;
                          {% endif %}
                      {% endfor %}
-                     </ul>
                  </td>
                  <td>
                      {% for g in grades %}
                          {% if g.student_id == s.id %}
-                             {{ g.avg|last }}
+                             {{ g.avg }}
                          {% endif %}
                      {% endfor %}
                  </td>
@@ -57,7 +56,7 @@
                 <i class="fa fa-gears"></i>
             </div>
             <div class="title-text">
-                <h3 class="title-heading">Lista obecności</h3>
+                <h3 class="title-heading">Lista obecności {{ date }}</h3>
             </div>
         </div>
    <div class="absence-center">
@@ -66,7 +65,6 @@
              <tr>
                  <th>Id</th>
                  <th>Imię Nazwisko</th>
-                 <th>Data</th>
                  <th>Obecny</th>
                  <th></th>
               </tr>
@@ -77,16 +75,13 @@
                  <td>{{ s.id }}</td>
                  <td><a href="/student/{{ s.id }}">{{ s.first_name }} {{ s.last_name }}</a></td>
                  <td>
-                     {{ date }}
-                 </td>
-                 <td>
                      {% for pre in presence_list %}
                          {% if pre.student_id == s.id %}
                             {{ pre.present }}
                          {% endif %}
                      {% endfor %}
                  </td>
-                 <td><a href="/teacher/{{ class_id }}/{{ subject.id }}/{{ s.id }}/grades">Edytuj</a></td>
+                 <td><a href="/teacher/{{ class_id }}/{{ subject.id }}/pres">Edytuj</a></td>
              </tr>
         {% endfor %}
         </tbody>
