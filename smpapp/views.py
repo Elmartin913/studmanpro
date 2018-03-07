@@ -2,6 +2,7 @@ import datetime
 
 from django.shortcuts import render
 from django.views import View
+from django.views.generic.edit import CreateView
 from django.template.response import TemplateResponse
 from django.http import HttpResponse, HttpResponseRedirect, request
 from django.urls import reverse, reverse_lazy
@@ -58,7 +59,6 @@ class TeacherView(View):
         }
 
         return render(request, 'teacher_full.html', ctx)
-
 
 
 class StudentSearchView(View):
@@ -125,7 +125,7 @@ class PresenceListFormView(View):
     def get(self, request, class_id, subject_id, student_id):
         date = datetime.date.today()
         studs = Student.objects.filter(school_class=class_id)
-        form = PresenceListForm(initial={'day': date})
+        form = PresenceListForm(initial={'day': date, 'student': studs})
         return render(request, 'class_presence.html', {'form': form})
 
     def post(self, request, class_id, subject_id, student_id):
@@ -145,6 +145,15 @@ class PresenceListFormView(View):
                 'class_id': class_id
             })
             return HttpResponseRedirect(url)
+
+
+class UnpreparedListFormView(CreateView):
+    form_class = UnpreparedListForm
+    template_name = 'unprepared_form.html'
+    success_url =reverse_lazy('teacher_class', kwargs={
+                'subject_id': subject_id,
+                'class_id': class_id }
+                              )
 
 
 

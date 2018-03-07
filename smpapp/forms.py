@@ -1,7 +1,7 @@
 from django import forms
 
 from .models import (
-    GRADES, Student, PresenceList, UnpreparedList, StudentGrades
+    GRADES, Student, UnpreparedList, UnpreparedList, StudentGrades
 )
 
 class StudentSearchForm(forms.Form):
