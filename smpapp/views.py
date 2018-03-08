@@ -24,6 +24,7 @@ from smpapp.forms import (
     PresenceListForm,
     UnpreparedListForm,
     LoginForm,
+    RegistrationForm,
 )
 
 # Create your views here.
@@ -202,3 +203,4 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect(reverse('login'))
+

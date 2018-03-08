@@ -30,6 +30,7 @@ from smpapp.views import (
 # auth
     LoginView,
     LogoutView,
+
     )
 
 urlpatterns = [
@@ -47,4 +48,5 @@ urlpatterns = [
     # auth
     path('login', LoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
+
 ]
