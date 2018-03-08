@@ -1,10 +1,12 @@
 from django import forms
 
 from .models import (
-    GRADES, Student, UnpreparedList, UnpreparedList, StudentGrades
+    GRADES, Student, UnpreparedList,
 )
 
+
 ''' Teacher Section '''
+
 class StudentSearchForm(forms.Form):
     name = forms.CharField(label='Nazwisko ucznia')
 
@@ -25,7 +27,10 @@ class UnpreparedListForm(forms.ModelForm):
         model = UnpreparedList
         fields = '__all__'
 
+
 ''' Auth Section '''
+
 class LoginForm(forms.Form):
     login = forms.CharField(label='Login')
     password = forms.CharField(label='Haslo', widget=forms.PasswordInput)
+
