@@ -6,6 +6,8 @@ from django.views.generic.edit import CreateView
 from django.template.response import TemplateResponse
 from django.http import HttpResponse, HttpResponseRedirect, request
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth.models import User
+from django.contrib.auth import login, logout, authenticate
 
 from smpapp.models import (
     SCHOOL_CLASS,
@@ -21,6 +23,7 @@ from smpapp.forms import (
     StudentGradesForm,
     PresenceListForm,
     UnpreparedListForm,
+    LoginForm,
 )
 
 # Create your views here.
@@ -150,14 +153,12 @@ class PresenceListFormView(View):
 class UnpreparedListFormView(CreateView):
     form_class = UnpreparedListForm
     template_name = 'unprepared_form.html'
-    success_url =reverse_lazy('teacher_class', kwargs={
-                'subject_id': subject_id,
-                'class_id': class_id }
-                              )
+    success_url =reverse_lazy('teacher_search')
 
 
 
 ''' Student Section'''
+
 class StudentView(View):
     def get(self, request, student_id):
         student = Student.objects.get(pk=student_id)
@@ -171,3 +172,27 @@ class StudentView(View):
         }
         return render(request, 'student_full.html', ctx)
 
+
+
+''' Auth Section '''
+
+class LoginView(View):
+
+    def get(self, request):
+        form = LoginForm()
+        return render(request, 'login.html', {'form': form})
+
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            login2 = form.cleaned_data['login']
+            password = form.cleaned_data['password']
+            user = authenticate(
+                username=login2,
+                password=password
+            )
+            if user is not None:
+                login(request, user)
+                return HttpResponse('Zalogowany {}'.format(user.username))
+            else:
+                return HttpResponse('Niepoprawne dane do logowania')
