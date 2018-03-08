@@ -39,5 +39,5 @@ class LoginForm(forms.Form):
 class ChangePassForm(forms.Form):
     old_pass = forms.CharField(widget=forms.PasswordInput())
     new_pass = forms.CharField(widget=forms.PasswordInput())
-    old_pass_2 = forms.CharField(widget=forms.PasswordInput())
+    new_pass_2 = forms.CharField(widget=forms.PasswordInput())
 

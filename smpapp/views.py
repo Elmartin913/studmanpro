@@ -24,7 +24,7 @@ from smpapp.forms import (
     PresenceListForm,
     UnpreparedListForm,
     LoginForm,
-    RegistrationForm,
+    ChangePassForm,
 )
 
 # Create your views here.
@@ -204,3 +204,27 @@ class LogoutView(View):
         logout(request)
         return HttpResponseRedirect(reverse('login'))
 
+
+class ChangePassView(View):
+
+    def get(self, request, user_id):
+        form = ChangePassForm()
+        return render(request, 'change_pass.html', {'form': form})
+
+    def post(self, request, user_id):
+        form = ChangePassForm(request.POST)
+        if form.is_valid():
+            user = User.objects.get(pk=user_id)
+            user = authenticate(
+                username=user.username,
+                password=form.cleaned_data['old_pass']
+            )
+            if not user.check_password(form.cleaned_data['old_pass']):
+                return HttpResponse('Niepoprane aktualne haslo')
+
+            if form.cleaned_data['new_pass'] != form.cleaned_data['new_pass_2']:
+                return HttpResponse('Nowe hasla nie s takie same')
+
+            user.set_password(form.cleaned_data['new_pass'])
+            user.save()
+            return HttpResponse('Haso zmienione')
