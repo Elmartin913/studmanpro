@@ -196,3 +196,9 @@ class LoginView(View):
                 return HttpResponse('Zalogowany {}'.format(user.username))
             else:
                 return HttpResponse('Niepoprawne dane do logowania')
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect(reverse('login'))
