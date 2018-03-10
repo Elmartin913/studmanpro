@@ -262,3 +262,6 @@ class BookDeleteView(DeleteView):
 class BookDetailView(DetailView):
     model = Book
     template_name = 'book_detail.html'
+
+
+''' Auditorium Section '''

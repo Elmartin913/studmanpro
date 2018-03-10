@@ -140,7 +140,7 @@ class Book(models.Model):
     tags = models.ManyToManyField('Tag', related_name='books') # 'Tag' bo klasa tag jest nizej
 
     def __str__(self):
-        return self.title
+        return str (self.title)
 
 
 
@@ -148,10 +148,23 @@ class Tag(models.Model):
     tag_name = models.CharField(null = True, max_length=256, verbose_name='Tag')
     #books
     def __str__(self):
-        return self.tag_name
+        return str(self.tag_name)
 
     def books_string(self):
         titles = [book.title for book in self.books.all()]
         return ', '.join(titles)
 
 
+''' Auditorium Section '''
+
+STATUS = ((1, 'wolna'),(2, 'zajęta'))
+
+class Auditorium(models.Model):
+
+    name = models.CharField(max_length=64)
+    capacity = models.IntegerField(null=True)
+    description =  models.TextField(null=True)
+    projector =models.IntegerField(choices=STATUS, null=True)
+
+    def __str__(self):
+        return self.name

@@ -47,4 +47,4 @@ class ChangePassForm(forms.Form):
 class NewBookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = '__all__'
+        exclude = ['date_added', ]
