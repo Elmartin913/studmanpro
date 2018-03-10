@@ -2,7 +2,7 @@ import datetime
 
 from django.shortcuts import render
 from django.views import View
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.template.response import TemplateResponse
 from django.http import HttpResponse, HttpResponseRedirect, request
 from django.urls import reverse, reverse_lazy
@@ -228,3 +228,10 @@ class ChangePassView(View):
             user.set_password(form.cleaned_data['new_pass'])
             user.save()
             return HttpResponse('Haso zmienione')
+
+
+''' Library Section '''
+
+class LibraryView(View):
+    def get(self, request):
+        return TemplateResponse(request, 'library.html')

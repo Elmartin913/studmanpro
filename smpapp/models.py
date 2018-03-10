@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -119,14 +120,10 @@ GENRES = (
 )
 
 class Author(models.Model):
-    first_name = models.CharField(max_length=256, verbose_name='Imie')
-    last_name = models.CharField(max_length=256, verbose_name='Nazwisko')
+    first_name = models.CharField(max_length=256, verbose_name='Imie', null=True)
+    last_name = models.CharField(max_length=256, verbose_name='Nazwisko', null=True)
 
-    class Meta:
-        verbose_name = 'Autor'
-        verbose_name_plural = 'Autorzy'
 
-    @property
     def name(self):
         return "{} {}".format(self.first_name, self.last_name)
 
@@ -135,16 +132,13 @@ class Author(models.Model):
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=256, verbose_name='Tytul')
-    gender = models.IntegerField(choices=GENRES, verbose_name='Gatunek')
+    title = models.CharField(max_length=256, verbose_name='Tytul', null=True)
+    gender = models.IntegerField(choices=GENRES, verbose_name='Gatunek', null=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     is_borrowed = models.NullBooleanField(default=False)
     date_added = models.DateField(auto_now_add=True)
     tags = models.ManyToManyField('Tag', related_name='books') # 'Tag' bo klasa tag jest nizej
 
-    class Meta:
-        verbose_name = 'Książka'
-        verbose_name_plural = 'Książki'
 
     def __str__(self):
         return self.title
@@ -156,7 +150,6 @@ class Tag(models.Model):
     def __str__(self):
         return self.tag_name
 
-    @property
     def books_string(self):
         titles = [book.title for book in self.books.all()]
         return ', '.join(titles)

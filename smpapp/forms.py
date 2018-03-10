@@ -41,3 +41,4 @@ class ChangePassForm(forms.Form):
     new_pass = forms.CharField(widget=forms.PasswordInput())
     new_pass_2 = forms.CharField(widget=forms.PasswordInput())
 
+
