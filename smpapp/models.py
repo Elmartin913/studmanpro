@@ -157,14 +157,26 @@ class Tag(models.Model):
 
 ''' Auditorium Section '''
 
-STATUS = ((1, 'wolna'),(2, 'zajęta'))
+PROJECTOR_STATUS = (
+    (1, 'projektor'),
+    (2, 'brak projektora')
+)
 
 class Auditorium(models.Model):
 
     name = models.CharField(max_length=64)
     capacity = models.IntegerField(null=True)
     description =  models.TextField(null=True)
-    projector =models.IntegerField(choices=STATUS, null=True)
+    projector =models.IntegerField(choices=PROJECTOR_STATUS, null=True)
 
     def __str__(self):
         return self.name
+
+
+class Booking(models.Model):
+    date = models.DateField(null=True)
+    auditorium = models.ForeignKey(Auditorium, null=True, related_name='room', on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher, null=True, related_name='teacher', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.date)
