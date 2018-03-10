@@ -249,4 +249,10 @@ class BookUpdateView(UpdateView):
     model = Book
     template_name = 'book_form.html'
     fields = '__all__'
-    success_url = reverse_lazy('books')
+    success_url = reverse_lazy('library')
+
+
+class BookDeleteView(DeleteView):
+    model = Book
+    template_name = 'book_form.html'
+    success_url = reverse_lazy('library')

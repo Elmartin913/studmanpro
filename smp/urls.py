@@ -35,6 +35,7 @@ from smpapp.views import (
     LibraryView,
     NewBookFormView,
     BookUpdateView,
+    BookDeleteView,
 
     )
 
@@ -58,5 +59,6 @@ urlpatterns = [
     path('library', LibraryView.as_view(), name='library'),
     path('book_create', NewBookFormView.as_view(), name='book_create'),
     path('book_update/<int:pk>', BookUpdateView.as_view(), name='book_update'),
+    path('book_delete/<int:pk>', BookDeleteView.as_view(), name='book_delete'),
 
 ]
