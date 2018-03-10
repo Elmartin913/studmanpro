@@ -139,9 +139,9 @@ class Book(models.Model):
     date_added = models.DateField(auto_now_add=True)
     tags = models.ManyToManyField('Tag', related_name='books') # 'Tag' bo klasa tag jest nizej
 
-
     def __str__(self):
         return self.title
+
 
 
 class Tag(models.Model):

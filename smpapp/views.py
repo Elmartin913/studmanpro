@@ -16,6 +16,7 @@ from smpapp.models import (
     StudentGrades,
     UnpreparedList,
     PresenceList,
+    Book,
 )
 
 from smpapp.forms import (
@@ -242,3 +243,10 @@ class NewBookFormView(CreateView):
     form_class = NewBookForm
     template_name = 'book_create_form.html'
     success_url = reverse_lazy('library')
+
+
+class BookUpdateView(UpdateView):
+    model = Book
+    template_name = 'book_form.html'
+    fields = '__all__'
+    success_url = reverse_lazy('books')
