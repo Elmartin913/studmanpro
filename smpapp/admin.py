@@ -1,15 +1,20 @@
 from django.contrib import admin
 
 from .models import (
-    Student, Teacher, SchoolSubject,StudentGrades, PresenceList, UnpreparedList,
-    Author, Book, Tag
+    Student,
+    Teacher,
+    SchoolSubject,
+    Book,
+    Auditorium
 )
 # Register your models here.
 
 ''' ------------------- SCHOOL SECTION ------------------- '''
 
+
 def suspend(admin, request, queryset):
     queryset.update(active=True)
+
 
 suspend.short_description = 'Zawieś'
 
@@ -17,7 +22,9 @@ suspend.short_description = 'Zawieś'
 def unsuspend(admin, request, queryset):
     queryset.update(active=False)
 
+
 unsuspend.short_description = 'Aktywój'
+
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
@@ -38,6 +45,7 @@ class SchoolSubjectAdmin(admin.ModelAdmin):
     def teacher_list(self, obj):
         return ', '.join([str(t) for t in obj.teacher.all()])
 
+
 '''
 @admin.register(StudentGrades)
 class StudentGradesAdmin(admin.ModelAdmin):
@@ -57,8 +65,10 @@ class UnpreparedListAdmin(admin.ModelAdmin):
 
 ''' ------------------- LIBRARY SECTION ------------------- '''
 
+
 def rented(admin, request, queryset):
     queryset.update(is_borrowed=True)
+
 
 rented.short_description = 'Wypożyczona'
 
@@ -66,10 +76,13 @@ rented.short_description = 'Wypożyczona'
 def returned(admin, request, queryset):
     queryset.update(is_borrowed=False)
 
+
 returned.short_description = 'Zwrócona'
+
 
 class BookTagInLineAdmin(admin.TabularInline):
     model = Book.tags.through
+
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
@@ -80,4 +93,10 @@ class BookAdmin(admin.ModelAdmin):
     def tags_list(self, obj):
         return ', '.join([str(t) for t in obj.tags.all()])
 
+
+''' ------------------- AUDITORIUM SECTION ------------------- '''
+
+@admin.register(Auditorium)
+class AuditoriumAdmin(admin.ModelAdmin):
+    list_display = ['name', 'capacity', 'projector', 'description']
 

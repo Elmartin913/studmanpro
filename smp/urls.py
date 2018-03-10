@@ -18,31 +18,32 @@ from django.urls import path
 
 from smpapp.views import (
     LPView,
-# teacher
+    # teacher
     TeacherStartView,
     TeacherView,
     StudentSearchView,
     StudentGradesFormView,
     PresenceListFormView,
     UnpreparedListFormView,
-# student
+    # student
     StudentView,
-# auth
+    # auth
     LoginView,
     LogoutView,
     ChangePassView,
-# liblary
+    # liblary
     LibraryView,
     NewBookFormView,
     BookUpdateView,
     BookDeleteView,
     BookDetailView,
 
-    )
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', LPView.as_view(), name='lp'),
+
     # teacher
     path('teacher', TeacherStartView.as_view(), name='teacher_start'),
     path('teacher/search', StudentSearchView.as_view(), name='teacher_search'),
@@ -50,12 +51,15 @@ urlpatterns = [
     path('teacher/<int:class_id>/<int:subject_id>/<int:student_id>/grades', StudentGradesFormView.as_view(), name='teacher_edit_grades'),
     path('teacher/<int:class_id>/<int:subject_id>/<int:student_id>/unpr', UnpreparedListFormView.as_view(), name='teacher_edit_unpr'),
     path('teacher/<int:class_id>/<int:subject_id>/<int:student_id>/pres', PresenceListFormView.as_view(), name='teacher_edit_pres'),
+
     # student
     path('student/<int:student_id>', StudentView.as_view(), name='student_view'),
+
     # auth
     path('login', LoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
     path('password_reset/<int:user_id>', ChangePassView.as_view(), name='password_reset'),
+
     # liblary
     path('library', LibraryView.as_view(), name='library'),
     path('book_create', NewBookFormView.as_view(), name='book_create'),

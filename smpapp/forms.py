@@ -2,11 +2,12 @@ from django import forms
 from django.contrib.auth.models import User
 
 from .models import (
-    GRADES, Student, UnpreparedList, Book,
+    GRADES, Student, UnpreparedList, Book, Booking
 )
 
 
 ''' Teacher Section '''
+
 
 class StudentSearchForm(forms.Form):
     name = forms.CharField(label='Nazwisko ucznia')
@@ -31,6 +32,7 @@ class UnpreparedListForm(forms.ModelForm):
 
 ''' Auth Section '''
 
+
 class LoginForm(forms.Form):
     login = forms.CharField(label='Login')
     password = forms.CharField(label='Haslo', widget=forms.PasswordInput)
@@ -44,7 +46,16 @@ class ChangePassForm(forms.Form):
 
 ''' Library Section '''
 
+
 class NewBookForm(forms.ModelForm):
     class Meta:
         model = Book
         exclude = ['date_added', ]
+
+
+''' Auditorium  Section '''
+
+class NewBookingForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = '__all__'

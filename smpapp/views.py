@@ -36,11 +36,14 @@ from smpapp.forms import (
 # Landing Page
 class LPView(View):
     def get(self, requset):
-        return TemplateResponse (requset, 'index.html')
+        return TemplateResponse(requset, 'index.html')
+
 
 ''' Teacher Section'''
 
 # Full Teacher View
+
+
 class TeacherStartView(View):
     def get(self, request):
         return render(request, 'teacher_base.html', {'all_class': SCHOOL_CLASS})
@@ -109,15 +112,15 @@ class StudentGradesFormView(View):
                 sum = float(grade)
                 for g in grades:
                     sum += int(g.grade)
-                avg = round(sum / (len(grades)+1), 2)
+                avg = round(sum / (len(grades) + 1), 2)
             except ZeroDivisionError:
                 avg = 0
 
             grades = StudentGrades.objects.create(
                 school_subject_id=subject_id,
                 student_id=student_id,
-                grade = float(grade),
-                avg = avg,
+                grade=float(grade),
+                avg=avg,
             )
 
             url = reverse('teacher_class', kwargs={
@@ -157,11 +160,11 @@ class PresenceListFormView(View):
 class UnpreparedListFormView(CreateView):
     form_class = UnpreparedListForm
     template_name = 'unprepared_form.html'
-    success_url =reverse_lazy('teacher_search')
-
+    success_url = reverse_lazy('teacher_search')
 
 
 ''' Student Section'''
+
 
 class StudentView(View):
     def get(self, request, student_id):
@@ -169,7 +172,7 @@ class StudentView(View):
         grades = StudentGrades.objects.filter(student_id=student_id)
         unprepared_list = UnpreparedList.objects.filter(student_id=student_id)
 
-        ctx ={
+        ctx = {
             'student': student,
             'grades': grades,
             'unprepared_list': unprepared_list,
@@ -177,8 +180,8 @@ class StudentView(View):
         return render(request, 'student_full.html', ctx)
 
 
-
 ''' Auth Section '''
+
 
 class LoginView(View):
 
@@ -234,6 +237,7 @@ class ChangePassView(View):
 
 
 ''' Library Section '''
+
 
 class LibraryView(View):
     def get(self, request):

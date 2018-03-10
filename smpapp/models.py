@@ -31,7 +31,6 @@ GRADES = (
 )
 
 
-
 class Student(models.Model):
     first_name = models.CharField(max_length=64, verbose_name='Imię')
     last_name = models.CharField(max_length=64, verbose_name='Nazwisko')
@@ -40,7 +39,7 @@ class Student(models.Model):
     suspended = models.BooleanField(default=True, verbose_name='Aktywny')
     add_date = models.DateField(auto_now_add=True)
     # relationships: SchoolSubject, StudentGrades, UnpreparedList
-    #actions:
+    # actions:
     active = models.BooleanField(default=True, verbose_name='Aktywny')
 
     class Meta:
@@ -51,7 +50,6 @@ class Student(models.Model):
         return "{} {}".format(self.first_name, self.last_name)
 
 
-
 class Teacher(models.Model):
     first_name = models.CharField(max_length=64, verbose_name='Imię')
     last_name = models.CharField(max_length=64, verbose_name='Nazwisko')
@@ -59,7 +57,7 @@ class Teacher(models.Model):
     suspended = models.BooleanField(default=True, verbose_name='Aktywny')
     add_date = models.DateField(auto_now_add=True)
     # relationships: school_subject
-    #actions:
+    # actions:
     active = models.BooleanField(default=True, verbose_name='Aktywny')
 
     class Meta:
@@ -68,7 +66,6 @@ class Teacher(models.Model):
 
     def __str__(self):
         return "{} {}".format(self.first_name, self.last_name)
-
 
 
 class SchoolSubject(models.Model):
@@ -82,7 +79,6 @@ class SchoolSubject(models.Model):
 
     def __str__(self):
         return self.name
-
 
 
 class StudentGrades(models.Model):
@@ -106,7 +102,7 @@ class UnpreparedList(models.Model):
     unprep_two_used = models.BooleanField(default=False)
     # relationships:
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    school_subject = models.ForeignKey(SchoolSubject,on_delete=models.CASCADE)
+    school_subject = models.ForeignKey(SchoolSubject, on_delete=models.CASCADE)
 
 
 ''' ------------------- LIBRARY SECTION ------------------- '''
@@ -119,10 +115,10 @@ GENRES = (
     (5, 'vademecum'),
 )
 
+
 class Author(models.Model):
     first_name = models.CharField(max_length=256, verbose_name='Imie', null=True)
     last_name = models.CharField(max_length=256, verbose_name='Nazwisko', null=True)
-
 
     def name2(self):
         return "{} {}".format(self.first_name, self.last_name)
@@ -137,16 +133,20 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     is_borrowed = models.NullBooleanField(default=False)
     date_added = models.DateField(auto_now_add=True)
-    tags = models.ManyToManyField('Tag', related_name='books') # 'Tag' bo klasa tag jest nizej
+    tags = models.ManyToManyField('Tag', related_name='books')  # 'Tag' bo klasa tag jest nizej
+
+    class Meta:
+        verbose_name = 'Książka'
+        verbose_name_plural = 'Książki'
 
     def __str__(self):
-        return str (self.title)
-
+        return str(self.title)
 
 
 class Tag(models.Model):
-    tag_name = models.CharField(null = True, max_length=256, verbose_name='Tag')
-    #books
+    tag_name = models.CharField(null=True, max_length=256, verbose_name='Tag')
+    # books
+
     def __str__(self):
         return str(self.tag_name)
 
@@ -162,12 +162,17 @@ PROJECTOR_STATUS = (
     (2, 'brak projektora')
 )
 
+
 class Auditorium(models.Model):
 
     name = models.CharField(max_length=64)
     capacity = models.IntegerField(null=True)
-    description =  models.TextField(null=True)
-    projector =models.IntegerField(choices=PROJECTOR_STATUS, null=True)
+    description = models.TextField(null=True)
+    projector = models.IntegerField(choices=PROJECTOR_STATUS, null=True)
+
+    class Meta:
+        verbose_name = 'Aula'
+        verbose_name_plural = 'Aule'
 
     def __str__(self):
         return self.name
