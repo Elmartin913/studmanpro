@@ -33,6 +33,7 @@ from smpapp.views import (
     ChangePassView,
 # liblary
     LibraryView,
+    NewBookFormView,
 
     )
 
@@ -54,5 +55,6 @@ urlpatterns = [
     path('password_reset/<int:user_id>', ChangePassView.as_view(), name='password_reset'),
     # liblary
     path('library', LibraryView.as_view(), name='library'),
+    path('book_create', NewBookFormView.as_view(), name='book_create'),
 
 ]

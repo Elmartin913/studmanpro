@@ -25,6 +25,7 @@ from smpapp.forms import (
     UnpreparedListForm,
     LoginForm,
     ChangePassForm,
+    NewBookForm,
 )
 
 # Create your views here.
@@ -235,3 +236,9 @@ class ChangePassView(View):
 class LibraryView(View):
     def get(self, request):
         return TemplateResponse(request, 'library.html')
+
+
+class NewBookFormView(CreateView):
+    form_class = NewBookForm
+    template_name = 'book_create_form.html'
+    success_url = reverse_lazy('library')

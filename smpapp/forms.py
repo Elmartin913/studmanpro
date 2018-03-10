@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 
 from .models import (
-    GRADES, Student, UnpreparedList,
+    GRADES, Student, UnpreparedList, Book,
 )
 
 
@@ -42,3 +42,9 @@ class ChangePassForm(forms.Form):
     new_pass_2 = forms.CharField(widget=forms.PasswordInput())
 
 
+''' Library Section '''
+
+class NewBookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = '__all__'

@@ -124,11 +124,11 @@ class Author(models.Model):
     last_name = models.CharField(max_length=256, verbose_name='Nazwisko', null=True)
 
 
-    def name(self):
+    def name2(self):
         return "{} {}".format(self.first_name, self.last_name)
 
     def __str__(self):
-        return self.name
+        return self.name2
 
 
 class Book(models.Model):
