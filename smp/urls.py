@@ -37,6 +37,8 @@ from smpapp.views import (
     BookUpdateView,
     BookDeleteView,
     BookDetailView,
+    # auditorium
+    RoomsView,
 
 )
 
@@ -66,4 +68,7 @@ urlpatterns = [
     path('book_update/<int:pk>', BookUpdateView.as_view(), name='book_update'),
     path('book_delete/<int:pk>', BookDeleteView.as_view(), name='book_delete'),
     path('book_detail/<pk>', BookDetailView.as_view(), name='book_detail'),
+
+    # auditorium
+    #path('rooms', RoomsView.as_view(), name='rooms'),
 ]
