@@ -94,6 +94,7 @@ class BookAdmin(admin.ModelAdmin):
         return ', '.join([str(t) for t in obj.tags.all()])
 
 
+
 ''' ------------------- AUDITORIUM SECTION ------------------- '''
 
 @admin.register(Auditorium)

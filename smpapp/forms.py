@@ -50,7 +50,9 @@ class ChangePassForm(forms.Form):
 class NewBookForm(forms.ModelForm):
     class Meta:
         model = Book
-        exclude = ['date_added', ]
+        fields = ['title', 'gender', 'is_borrowed', 'tags', 'authors', 'author' ]
+
+
 
 
 ''' Auditorium  Section '''

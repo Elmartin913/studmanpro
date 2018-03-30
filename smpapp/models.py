@@ -119,12 +119,13 @@ GENRES = (
 class Author(models.Model):
     first_name = models.CharField(max_length=256, verbose_name='Imie', null=True)
     last_name = models.CharField(max_length=256, verbose_name='Nazwisko', null=True)
+    #books2
 
-    def name2(self):
-        return "{} {}".format(self.first_name, self.last_name)
+    def name(self):
+        return '{} {}'.format(self.first_name, self.last_name)
 
-    def __str__(self):
-        return self.name2
+    def __repr__(self):
+        return self.name
 
 
 class Book(models.Model):
@@ -134,13 +135,17 @@ class Book(models.Model):
     is_borrowed = models.NullBooleanField(default=False)
     date_added = models.DateField(auto_now_add=True)
     tags = models.ManyToManyField('Tag', related_name='books')  # 'Tag' bo klasa tag jest nizej
+    authors = models.ManyToManyField(Author, related_name='books2')
 
     class Meta:
         verbose_name = 'Książka'
         verbose_name_plural = 'Książki'
 
+    def name2(self):
+        return '{}'.format(self.title)
+
     def __str__(self):
-        return str(self.title)
+        return self.name2
 
 
 class Tag(models.Model):
@@ -148,7 +153,7 @@ class Tag(models.Model):
     # books
 
     def __str__(self):
-        return str(self.tag_name)
+        return self.tag_name
 
     def books_string(self):
         titles = [book.title for book in self.books.all()]

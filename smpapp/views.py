@@ -245,9 +245,7 @@ class LibraryView(View):
 
 
 class NewBookFormView(CreateView):
-    model = Book
-    fields = '__all__'
-    #template_name_suffix = '_create_form'
+    form_class = NewBookForm
     template_name = 'book_create_form.html'
     success_url = reverse_lazy('library')
 
