@@ -50,7 +50,7 @@ class ChangePassForm(forms.Form):
 class NewBookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ['title', 'gender', 'is_borrowed', 'tags', 'authors', 'author' ]
+        fields = ['title', 'gender', 'is_borrowed', 'tags', 'authors', 'authors' ]
 
 
 

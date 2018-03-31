@@ -121,10 +121,15 @@ class Author(models.Model):
     last_name = models.CharField(max_length=256, verbose_name='Nazwisko', null=True)
     #books2
 
+    class Meta:
+        verbose_name = 'Autor'
+        verbose_name_plural = 'Autorzy'
+
+    @property
     def name(self):
         return '{} {}'.format(self.first_name, self.last_name)
 
-    def __repr__(self):
+    def __str__(self):
         return self.name
 
 
@@ -132,7 +137,7 @@ class Book(models.Model):
     title = models.CharField(max_length=256, verbose_name='Tytul', null=True)
     gender = models.IntegerField(choices=GENRES, verbose_name='Gatunek', null=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    is_borrowed = models.NullBooleanField(default=False)
+    is_borrowed = models.NullBooleanField(default=False, verbose_name='Wypożyczona?')
     date_added = models.DateField(auto_now_add=True)
     tags = models.ManyToManyField('Tag', related_name='books')  # 'Tag' bo klasa tag jest nizej
     authors = models.ManyToManyField(Author, related_name='books2')
@@ -151,6 +156,10 @@ class Book(models.Model):
 class Tag(models.Model):
     tag_name = models.CharField(null=True, max_length=256, verbose_name='Tag')
     # books
+
+    class Meta:
+        verbose_name = 'Tag'
+        verbose_name_plural = 'Tagi'
 
     def __str__(self):
         return self.tag_name
