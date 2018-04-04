@@ -1,4 +1,4 @@
-{% extends 'teacher_base.html' %}
+{% extends 'panel.html' %}
 
 
     {% block teacher_diary %}
@@ -11,7 +11,6 @@
             </div>
         </div>
      <div class="diary-center">
-         <h3>Przedmiot: {{ student.school_class }}</h3>
          <h3>Przedmiot: {{ subject.name }}</h3><p>id: {{ subject.id }}</p>
      <table class="table table-striped">
          <thead>

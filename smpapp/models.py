@@ -41,7 +41,7 @@ class Student(models.Model):
     suspended = models.BooleanField(default=True, verbose_name='Aktywny')
     add_date = models.DateField(auto_now_add=True)
     active = models.BooleanField(default=True, verbose_name='Aktywny')
-    # rozbudowa użytkownika przez relacje
+
 
     class Meta:
         verbose_name = 'Student'
