@@ -5,7 +5,9 @@ jewel #4717f6
 stark #e7dfdd
 */
 
-
+body {
+    font-family: 'Mukta Mahee', sans-serif;
+}
 
 .row.content {
     height: 100vh;

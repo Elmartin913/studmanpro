@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box
-} 
+}
 
 
 
@@ -46,7 +46,7 @@ button:hover {
 .cancelbtn {
     padding: 14px 20px;
     background-color: #f44336;
-        
+
 }
 
 /* Float cancel and signup buttons and add an equal width */
@@ -81,6 +81,11 @@ form{
     text-align: center;
 }
 
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
 
 /* The Modal (background) */
 .modal {
@@ -109,7 +114,7 @@ hr {
     border: 1px solid #f1f1f1;
     margin-bottom: 25px;
 }
- 
+
 /* The Close Button (x) */
 .close {
     position: absolute;
@@ -143,7 +148,7 @@ hr {
         justify-content: space-around;
     }
     form{
-        max-width: 400px;
+        width: 450px;
     }
-    
+
 }
