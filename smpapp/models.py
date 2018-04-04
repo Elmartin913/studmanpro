@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+
+
 ''' ------------------- SCHOOL SECTION ------------------- '''
 
 SCHOOL_CLASS = (
@@ -38,9 +40,8 @@ class Student(models.Model):
     email = models.EmailField(verbose_name='Email', blank=True)
     suspended = models.BooleanField(default=True, verbose_name='Aktywny')
     add_date = models.DateField(auto_now_add=True)
-    # relationships: SchoolSubject, StudentGrades, UnpreparedList
-    # actions:
     active = models.BooleanField(default=True, verbose_name='Aktywny')
+    # rozbudowa użytkownika przez relacje
 
     class Meta:
         verbose_name = 'Student'
@@ -56,9 +57,8 @@ class Teacher(models.Model):
     email = models.EmailField(verbose_name='Email', blank=True)
     suspended = models.BooleanField(default=True, verbose_name='Aktywny')
     add_date = models.DateField(auto_now_add=True)
-    # relationships: school_subject
-    # actions:
     active = models.BooleanField(default=True, verbose_name='Aktywny')
+    #rozbudowa użytkownika przez nadpisanie modelu
 
     class Meta:
         verbose_name = 'Nauczyciel'
@@ -84,6 +84,7 @@ class SchoolSubject(models.Model):
 class StudentGrades(models.Model):
     grade = models.FloatField(choices=GRADES)
     avg = models.FloatField(default=0)
+    evaluation = models.TextField(null=True)
     # relationships:
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='studentGrades')
     school_subject = models.ForeignKey(SchoolSubject, on_delete=models.CASCADE, related_name='studentGrades')

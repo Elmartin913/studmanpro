@@ -4,12 +4,15 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 from django.template.response import TemplateResponse
 from django.http import HttpResponse, HttpResponseRedirect, request
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from smpapp.models import (
     SCHOOL_CLASS,
@@ -50,7 +53,7 @@ class TeacherStartView(View):
         return render(request, 'teacher_base.html', {'all_class': SCHOOL_CLASS})
 
 
-class TeacherView(View):
+class TeacherView(LoginRequiredMixin,View):
     def get(self, request, class_id, subject_id):
         students = Student.objects.filter(school_class=class_id)
         subject = SchoolSubject.objects.get(pk=subject_id)
@@ -250,6 +253,11 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
+
+
+class UserListView(ListView):
+    model = User
+    template_name = 'user_list.html'
 
 
 ''' Library Section '''
