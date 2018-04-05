@@ -101,7 +101,16 @@
       </div>
 
 
-        <div class="col-sm-5">
+        <div class="col-sm-10">
+          <div class="well">
+
+            {% block final_grades %}
+            {% endblock final_grades %}
+
+          </div>
+        </div>
+
+            <div class="col-sm-5">
           <div class="well">
 
             {% block absence_list %}

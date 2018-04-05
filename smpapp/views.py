@@ -19,6 +19,7 @@ from smpapp.models import (
     Student,
     SchoolSubject,
     StudentGrades,
+    FinalGrades,
     UnpreparedList,
     PresenceList,
     Book,
@@ -59,6 +60,7 @@ class TeacherView(LoginRequiredMixin,View):
         students = Student.objects.filter(school_class=class_id)
         subject = SchoolSubject.objects.get(pk=subject_id)
         grades = StudentGrades.objects.filter(school_subject_id=subject_id)
+        finals = FinalGrades.objects.filter(school_subject_id=subject_id)
         unprepared_list = UnpreparedList.objects.filter(school_subject_id=subject_id)
         presence_list = PresenceList.objects.filter(school_subject_id=subject_id,
                                                     day=datetime.date.today()
@@ -68,6 +70,7 @@ class TeacherView(LoginRequiredMixin,View):
             'subject': subject,
             'students': students,
             'grades': grades,
+            'finals': finals,
             'unprepared_list': unprepared_list,
             'presence_list': presence_list,
             'class_id': class_id,
@@ -138,7 +141,7 @@ class StudentGradesFormView(View):
 class FinalGradesFormView(View):
     def get(self, request, class_id, subject_id, student_id):
         form = FinalGradesForm()
-        grades = StudentGrades.objects.filter(
+        grades = FinalGrades.objects.filter(
             student_id=student_id,
             school_subject=subject_id
         )

@@ -23,6 +23,7 @@ from smpapp.views import (
     TeacherView,
     StudentSearchView,
     StudentGradesFormView,
+    FinalGradesFormView,
     PresenceListFormView,
     UnpreparedListFormView,
     # student
@@ -55,7 +56,7 @@ urlpatterns = [
     path('teacher/<int:class_id>/<int:subject_id>/<int:student_id>/grades', StudentGradesFormView.as_view(), name='teacher_edit_grades'),
     path('teacher/<int:class_id>/<int:subject_id>/<int:student_id>/unpr', UnpreparedListFormView.as_view(), name='teacher_edit_unpr'),
     path('teacher/<int:class_id>/<int:subject_id>/<int:student_id>/pres', PresenceListFormView.as_view(), name='teacher_edit_pres'),
-
+    path('teacher/<int:class_id>/<int:subject_id>/<int:student_id>/finalgrades', FinalGradesFormView.as_view(), name='teacher_final_grades'),
     # student
     path('student/<int:student_id>', StudentView.as_view(), name='student_view'),
 

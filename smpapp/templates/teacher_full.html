@@ -58,8 +58,67 @@
      </div>
     {% endblock teacher_diary %}
 
-{% block absence_list %}
-<div class="title">
+    {% block final_grades %}
+     <div class="title">
+            <div class="title-icon">
+                <i class="fa fa-gears"></i>
+            </div>
+            <div class="title-text">
+                <h2 class="title-heading">Oceny semestralne</h2>
+            </div>
+        </div>
+     <div class="diary-center">
+         <h3>Klasa: {% for c in cp_class %}
+                         {% if class_id == c.0 %}
+                             {{ c.1 }}
+                         {% endif %}
+                     {% endfor %}
+         </h3>
+         <h3>Przedmiot: {{ subject.name }}</h3>
+
+     <table class="table table-striped">
+         <thead>
+             <tr>
+                 <th>Id</th>
+                 <th>Imię Nazwisko</th>
+                 <th>Średnia 1</th>
+                 <th>Średnia 2</th>
+                 <th>Półrocze</th>
+                 <th>Ocena końcowa</th>
+                 <th></th>
+              </tr>
+         </thead>
+         <tbody>
+         {% for s in students %}
+             <tr>
+                 <td>{{ s.id }}</td>
+                 <td><a href="/student/{{ s.id }}">{{ s.first_name }} {{ s.last_name }}</a></td>
+                 <td>
+                     {% for g in grades %}
+                         {% if g.student_id == s.id %}
+                            {{ g.get_grade_display }}&nbsp;
+                         {% endif %}
+                     {% endfor %}
+                 </td>
+                 <td>
+                         {% if g in grades.last %}
+                             {% if g.student_id == s.id %}
+
+                                 {{ g.avg }}
+                             {% endif %}
+                        {% endif %}
+
+                 </td>
+                 <td><a href="/teacher/{{ class_id }}/{{ subject.id }}/{{ s.id }}/finalgrades">Oceń</a></td>
+             </tr>
+        {% endfor %}
+        </tbody>
+     </table>
+     </div>
+    {% endblock final_grades %}
+
+        {% block absence_list %}
+        <div class="title">
             <div class="title-icon">
                 <i class="fa fa-gears"></i>
             </div>

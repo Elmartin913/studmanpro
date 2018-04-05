@@ -18,8 +18,9 @@ class StudentGradesForm(forms.Form):
 
 
 class FinalGradesForm(forms.ModelForm):
-    model = FinalGrades
-    fields = '__all__'
+    class Meta:
+        model = FinalGrades
+        fields = ['avg1', 'avg2', 'half', 'final']
 
 
 class PresenceListForm(forms.Form):

@@ -92,8 +92,8 @@ class StudentGrades(models.Model):
 class FinalGrades(models.Model):
     avg1 = models.FloatField(default=0)
     avg2 = models.FloatField(default=0)
-    half = models.FloatField(choices=GRADES)
-    final = models.FloatField(choices=GRADES)
+    half = models.FloatField(choices=GRADES, blank=True, null=True)
+    final = models.FloatField(choices=GRADES, blank=True, null=True)
     # relationships:
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='finalGrades')
     school_subject = models.ForeignKey(SchoolSubject, on_delete=models.CASCADE, related_name='finalGrades')
