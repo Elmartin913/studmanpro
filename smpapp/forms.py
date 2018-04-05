@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 
 from .models import (
-    GRADES, Student, UnpreparedList, Book, Booking
+    GRADES, Student, UnpreparedList, Book, Booking, FinalGrades
 )
 
 
@@ -15,6 +15,11 @@ class StudentSearchForm(forms.Form):
 
 class StudentGradesForm(forms.Form):
     grade = forms.ChoiceField(label='Ocena', choices=GRADES)
+
+
+class FinalGradesForm(forms.ModelForm):
+    model = FinalGrades
+    fields = '__all__'
 
 
 class PresenceListForm(forms.Form):

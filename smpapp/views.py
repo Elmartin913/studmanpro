@@ -27,6 +27,7 @@ from smpapp.models import (
 from smpapp.forms import (
     StudentSearchForm,
     StudentGradesForm,
+    FinalGradesForm,
     PresenceListForm,
     UnpreparedListForm,
     LoginForm,
@@ -108,6 +109,51 @@ class StudentGradesFormView(View):
         if form.is_valid():
             grade = form.cleaned_data['grade']
             grades = StudentGrades.objects.filter(
+                student_id=student_id,
+                school_subject=subject_id
+            )
+
+            try:
+                sum = float(grade)
+                for g in grades:
+                    sum += int(g.grade)
+                avg = round(sum / (len(grades) + 1), 2)
+            except ZeroDivisionError:
+                avg = 0
+
+            grades = StudentGrades.objects.create(
+                school_subject_id=subject_id,
+                student_id=student_id,
+                grade=float(grade),
+                avg=avg,
+            )
+
+            url = reverse('teacher_class', kwargs={
+                'class_id': class_id,
+                'subject_id': subject_id,
+            })
+            return HttpResponseRedirect(url)
+
+
+class FinalGradesFormView(View):
+    def get(self, request, class_id, subject_id, student_id):
+        form = FinalGradesForm()
+        grades = StudentGrades.objects.filter(
+            student_id=student_id,
+            school_subject=subject_id
+        )
+        print(vars(grades))
+        ctx = {
+            'grades': grades,
+            'form': form,
+        }
+        return render(request, 'teacher_grades.html', ctx)
+
+    def post(self, request, class_id, subject_id, student_id):
+        form = FinalGradesForm(request.POST)
+        if form.is_valid():
+            grade = form.cleaned_data['grade']
+            grades = FinalGrades.objects.filter(
                 student_id=student_id,
                 school_subject=subject_id
             )
