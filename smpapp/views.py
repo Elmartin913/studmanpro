@@ -204,7 +204,7 @@ class LoginView(View):
             )
             if user is not None:
                 login(request, user)
-                return HttpResponse('Zalogowany {}'.format(user.username))
+                return HttpResponseRedirect('teacher/search')
             else:
                 return HttpResponse('Niepoprawne dane do logowania')
 

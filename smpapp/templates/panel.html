@@ -52,29 +52,54 @@
       <img src="{% static 'LP/img/logo2.png' %}" alt="Avatar" class="avatar">
       <br>
       <hr>
-      <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a href="#section1">Klasa-top</a></li>
- h        {% for c in cp_class %}
-            <li><a href="/teacher/{{ c.0 }}">{{ c.1 }}</a></li>
+
+          {% for c in cp_class %}
+          <!-- Default dropright button -->
+            <div class="btn-group dropright">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">{{ c.1 }}
+              </button>
+              <div class="dropdown-menu">
+                <!-- Dropdown menu links -->
+                  {% for s in cp_subjects %}
+                  <li><a class="dropdown-item" href="/teacher/{{ c.0 }}/{{s.pk}}">{{ s.name }}</a></li>
+                  {% endfor %}
+              </div>
+            </div>
+        <br>
           {% endfor %}
 
-        <li><p><a href="tryit.asp-filename=trybs_navbar_right&stacked=h.html#"><span class="glyphicon glyphicon-user"></span> {{ request.user.username }}</a></p></li>
+        <hr>
+
+        <p><a href="tryit.asp-filename=trybs_navbar_right&stacked=h.html#">
+            <span class="glyphicon glyphicon-user"></span> {{ request.user.username }}</a>
+            </p>
+
 
         {% if request.user.is_authenticated %}
             <p><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Wyloguj</a></p>
         {% else %}
             <p><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span>Zaloguj</a></p>
         {% endif %}
-      </ul><br>
+      <br>
     </div>
     <br>
 
-    <div class="col-sm-10">
-      <div class="well">
-            {% block teacher_diary %}
-            {% endblock teacher_diary %}
+
+      <div class="col-sm-10">
+          <div class="well">
+                {% block teacher_diary %}
+                {% endblock teacher_diary %}
+          </div>
       </div>
-    </div>
+
+      <div class="col-sm-10">
+          <div class="well">
+                {% block content %}
+                {% endblock content %}
+          </div>
+      </div>
+
 
         <div class="col-sm-5">
           <div class="well">

@@ -11,7 +11,14 @@
             </div>
         </div>
      <div class="diary-center">
-         <h3>Przedmiot: {{ subject.name }}</h3><p>id: {{ subject.id }}</p>
+         <h3>Klasa: {% for c in cp_class %}
+                         {% if class_id == c.0 %}
+                             {{ c.1 }}
+                         {% endif %}
+                     {% endfor %}
+         </h3>
+         <h3>Przedmiot: {{ subject.name }}</h3>
+
      <table class="table table-striped">
          <thead>
              <tr>
@@ -35,12 +42,13 @@
                      {% endfor %}
                  </td>
                  <td>
-                     {% for g in grades %}
-                         {% if g.student_id == s.id %}
+                         {% if g in grades.last %}
+                             {% if g.student_id == s.id %}
 
-                             {{ g.avg }}
-                         {% endif %}
-                     {% endfor %}
+                                 {{ g.avg }}
+                             {% endif %}
+                        {% endif %}
+
                  </td>
                  <td><a href="/teacher/{{ class_id }}/{{ subject.id }}/{{ s.id }}/grades">Oceń</a></td>
              </tr>
@@ -105,8 +113,8 @@
              <tr>
                  <th>Id</th>
                  <th>Imię Nazwisko</th>
-                 <th>Nieprzygotoanie 1</th>
-                 <th>Nieprzygotoanie 2</th>
+                 <th>1</th>
+                 <th>2</th>
                  <th></th>
               </tr>
          </thead>

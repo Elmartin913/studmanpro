@@ -1,6 +1,7 @@
-{% extends 'teacher_base.html' %}
+{% extends 'panel.html' %}
 
 {% block content %}
+    <h2>Wyszukaj studenta</h2>
     <form method="POST">
 
         {% csrf_token %}
@@ -19,7 +20,7 @@
             <p><a href="/student/{{ s.id }}">Więcej danych</a></p>
 
         {% empty %}
-            <p>Studenta nie ma na lisci</p>
+            <p>Wyszukaj ponownia</p>
         {% endfor%}
 
 {% endblock %}

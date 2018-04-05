@@ -89,6 +89,15 @@ class StudentGrades(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='studentGrades')
     school_subject = models.ForeignKey(SchoolSubject, on_delete=models.CASCADE, related_name='studentGrades')
 
+class FinalGrades(models.Model):
+    avg1 = models.FloatField(default=0)
+    avg2 = models.FloatField(default=0)
+    half = models.FloatField(choices=GRADES)
+    final = models.FloatField(choices=GRADES)
+    # relationships:
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='finalGrades')
+    school_subject = models.ForeignKey(SchoolSubject, on_delete=models.CASCADE, related_name='finalGrades')
+
 
 class PresenceList(models.Model):
     day = models.DateField()
